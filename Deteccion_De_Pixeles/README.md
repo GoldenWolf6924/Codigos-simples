@@ -1,1 +1,1 @@
-Codigos relacionados con la deteccion de ciertos píxeles en pantalla
+Codigos relacionados con la deteccion de ciertos píxeles en pantalla usando pyautogui.
