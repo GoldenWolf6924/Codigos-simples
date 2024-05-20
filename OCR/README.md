@@ -3,5 +3,7 @@ Codigo para leer una foto de un numero,convertirla a escala de grises, aplicar u
 Una vez aplicado eso guarda el texto en un excel junto al nombre de la imagen solo faltaria limpiar los posibles errores que pueda tener al momento de
 pasar el texto al excel. 
 
-Aveces pone "-" sin motivo aparente solo hay que limpiarlos para poder manejar los datos de forma correcta.
+Una vez aplicado eso guarda el texto en un excel junto al nombre de la imagen solo faltaria limpiar los posibles errores que pueda tener al momento de
+pasar el texto al excel. 
+
 
