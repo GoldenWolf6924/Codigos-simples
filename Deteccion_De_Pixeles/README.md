@@ -1,1 +1,0 @@
-Codigos relacionados con la deteccion de ciertos píxeles en pantalla
