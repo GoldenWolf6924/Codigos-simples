@@ -4,7 +4,7 @@ import pytesseract
 from openpyxl import Workbook
 
 # Especifica la ruta completa a tesseract.exe
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe' #Si es necesarios cambiar ruta
 
 def preprocess_image(image):
     image = image.convert('L')  
