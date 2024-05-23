@@ -24,8 +24,8 @@ def heuristic(city, goal_city, heuristic_values):
 def successors(city, distances):
     successors = []
     for neighbor, (distance_time, distance_miles) in distances[city].items():
-        # Limpiar el nombre de la ciudad
-        neighbor_cleaned = neighbor.strip().replace("'", "").replace('"', '')  # Eliminar comillas u otros caracteres no deseados
+       
+        neighbor_cleaned = neighbor.strip().replace("'", "").replace('"', '')  
         # Verificar si la distancia no es nula
         if pd.notna(distance_miles):
             successors.append((neighbor_cleaned, int(distance_miles)))
@@ -204,31 +204,31 @@ def get_start_goal_cities(distances, heuristic_values):
     root.mainloop()
 def get_predefined_data():
     distances = {
-        'Los Angeles': {'San Diego': ((1, 50), 116), 'Barstow': ((1, 35), 114), 'Phoenix': ((4, 20), 372)},
-        'San Diego': {'Los Angeles': ((1, 50), 116), 'Ensenada': ((3, 10), 146), 'Barstow': ((3, 20), 176), 'Phoenix': ((6, 30), 350)},
-        'Ensenada': {'San Diego': ((3, 10), 146), 'Nogales': ((18, 20), 915)},
-        'Barstow': {'Los Angeles': ((1, 35), 114), 'San Diego': ((3, 20), 176)},
-        'Phoenix': {'Los Angeles': ((4, 20), 372), 'San Diego': ((6, 30), 350), 'Las Vegas': ((5, 50), 293), 'Flagstaff': ((3, 0), 143), 'Springerville': ((4, 20), 221), 'El Paso': ((7, 50), 429), 'Tucson': ((2, 30), 114)},
-        'Nogales': {'Ensenada': ((18, 20), 915), 'Tucson': ((1, 25), 66)},
-        'Tucson': {'El Paso': ((6, 0), 317), 'Nogales': ((1, 25), 66), 'Phoenix': ((2, 30), 114)},
-        'El Paso': {'Tucson': ((6, 0), 317), 'Phoenix': ((7, 50), 429), 'Albuquerque': ((5, 0), 265), 'Amarillo': ((7, 50), 417), 'Big Spring': ((6, 40), 345)},
-        'Big Spring': {'El Paso': ((6, 40), 345), 'Albuquerque': ((7, 50), 430), 'Amarillo': ((4, 30), 227), 'Dallas': ((5, 30), 290)},
-        'Amarillo': {'Albuquerque': ((5, 30), 288), 'Lamar': ((5, 20), 275), 'Liberal': ((3, 20), 162), 'Oklahoma City': ((5, 0), 258), 'Dallas': ((6, 50), 362), 'Big Spring': ((4, 30), 227), 'El Paso': ((7, 50), 417)},
-        'Dallas': {'Big Spring': ((5, 30), 290), 'Amarillo': ((6, 50), 362), 'Oklahoma City': ((4, 10), 206)},
+        'Los Angeles': {'San Diego': ((1, 43), 116), 'Barstow': ((1, 38), 114), 'Phoenix': ((5, 17), 372)},
+        'San Diego': {'Los Angeles': ((1, 43), 116), 'Ensenada': ((2, 9), 146), 'Barstow': ((2, 31), 176), 'Phoenix': ((5, 13), 350)},
+        'Ensenada': {'San Diego': ((2, 9), 146), 'Nogales': ((9, 58), 915)},
+        'Barstow': {'Los Angeles': ((1, 38), 114), 'San Diego': ((2, 31), 176)},
+        'Phoenix': {'Los Angeles': ((5, 17), 372), 'San Diego': ((5, 13), 350), 'Las Vegas': ((5, 33), 293), 'Flagstaff': ((2, 7), 143), 'Springerville': ((4, 5), 221), 'El Paso': ((6, 15), 429), 'Tucson': ((1, 44), 114)},
+        'Nogales': {'Ensenada': ((9, 58), 915), 'Tucson': ((1, 2), 66)},
+        'Tucson': {'El Paso': ((4, 38), 317), 'Nogales': ((1, 2), 66), 'Phoenix': ((1, 44), 114)},
+        'El Paso': {'Tucson': ((4, 38), 317), 'Phoenix': ((6, 15), 429), 'Albuquerque': ((3, 54), 265), 'Amarillo': ((8, 17), 417), 'Big Spring': ((5, 25), 345)},
+        'Big Spring': {'El Paso': ((5, 25), 345), 'Albuquerque': ((7, 27), 430), 'Amarillo': ((3, 56), 227), 'Dallas': ((4, 35), 290)},
+        'Amarillo': {'Albuquerque': ((4, 11), 288), 'Lamar': ((3, 36), 215), 'Liberal': ((3, 5), 162), 'Oklahoma City': ((3, 43), 258), 'Dallas': ((5, 29), 362), 'Big Spring': ((3, 56), 227), 'El Paso': ((8, 17), 417)},
+        'Dallas': {'Big Spring': ((4, 35), 290), 'Amarillo': ((5, 29), 362), 'Oklahoma City': ((3, 6), 206)},
     }
 
     heuristic_values = {
-        'Los Angeles': {'Los Angeles': 0, 'San Diego': 115, 'Ensenada': 160, 'Barstow': 105, 'Phoenix': 340, 'Nogales': 290, 'Tucson': 480, 'El Paso': 700, 'Big Spring': 900, 'Amarillo': 950, 'Dallas':1237 },
-        'San Diego': {'Los Angeles': 115, 'San Diego': 0, 'Ensenada': 140, 'Barstow': 150, 'Phoenix': 310, 'Nogales': 300, 'Tucson': 460, 'El Paso': 680, 'Big Spring': 880, 'Amarillo': 930, 'Dallas':1181 },
-        'Ensenada': {'Los Angeles': 160, 'San Diego': 140, 'Ensenada': 0, 'Barstow': 100, 'Phoenix': 320, 'Nogales': 310, 'Tucson': 470, 'El Paso': 690, 'Big Spring': 890, 'Amarillo': 940, 'Dallas': 1250},
-        'Barstow': {'Los Angeles': 105, 'San Diego': 150, 'Ensenada': 100, 'Barstow': 0, 'Phoenix': 250, 'Nogales': 330, 'Tucson': 490, 'El Paso': 710, 'Big Spring': 910, 'Amarillo': 960, 'Dallas': 1168},
-        'Phoenix': {'Los Angeles': 340, 'San Diego': 310, 'Ensenada': 320, 'Barstow': 250, 'Phoenix': 0, 'Nogales': 180, 'Tucson': 130, 'El Paso': 350, 'Big Spring': 550, 'Amarillo': 600, 'Dallas': 884},
-        'Nogales': {'Los Angeles': 290, 'San Diego': 300, 'Ensenada': 310, 'Barstow': 330, 'Phoenix': 180, 'Nogales': 0, 'Tucson': 70, 'El Paso': 260, 'Big Spring': 460, 'Amarillo': 510, 'Dallas': 930},
-        'Tucson': {'Los Angeles': 480, 'San Diego': 460, 'Ensenada': 470, 'Barstow': 490, 'Phoenix': 130, 'Nogales': 70, 'Tucson': 0, 'El Paso': 210, 'Big Spring': 410, 'Amarillo': 460, 'Dallas': 826},
-        'El Paso': {'Los Angeles': 700, 'San Diego': 680, 'Ensenada': 690, 'Barstow': 710, 'Phoenix': 350, 'Nogales': 260, 'Tucson': 210, 'El Paso': 0, 'Big Spring': 200, 'Amarillo': 250, 'Dallas': 570},
-        'Big Spring': {'Los Angeles': 900, 'San Diego': 880, 'Ensenada': 890, 'Barstow': 910, 'Phoenix': 550, 'Nogales': 460, 'Tucson': 410, 'El Paso': 200, 'Big Spring': 0, 'Amarillo': 120, 'Dallas': 274},
-        'Amarillo': {'Los Angeles': 950, 'San Diego': 930, 'Ensenada': 940, 'Barstow': 960, 'Phoenix': 600, 'Nogales': 510, 'Tucson': 460, 'El Paso': 250, 'Big Spring': 120, 'Amarillo': 0, 'Dallas': 273},
-        'Dallas': {'Los Angeles': 1237, 'San Diego': 1181, 'Ensenada': 1250, 'Barstow': 1168, 'Phoenix': 884, 'Nogales': 930, 'Tucson': 826, 'El Paso': 570, 'Big Spring': 274, 'Amarillo': 273, 'Dallas': 0},
+        'Los Angeles': {'Los Angeles': 0, 'San Diego': 111.38, 'Ensenada': 179.05, 'Barstow': 90.66, 'Phoenix': 356.90, 'Nogales': 464.13, 'Tucson': 439.21, 'El Paso': 699.37, 'Big Spring': 977.12, 'Amarillo': 935.37, 'Dallas':1237.77 },
+        'San Diego': {'Los Angeles': 111.38, 'San Diego': 0, 'Ensenada': 67.82, 'Barstow': 151.04, 'Phoenix': 299.03, 'Nogales': 376.64, 'Tucson': 362.54, 'El Paso': 626.88, 'Big Spring': 914.36, 'Amarillo': 894.35, 'Dallas':1181.78 },
+        'Ensenada': {'Los Angeles': 179.05, 'San Diego': 67.82, 'Ensenada': 0, 'Barstow': 211.71, 'Phoenix': 285.74, 'Nogales': 355.41, 'Tucson': 330.50, 'El Paso':593.66 , 'Big Spring': 885.94, 'Amarillo': 880.89, 'Dallas':1156.78 },
+        'Barstow': {'Los Angeles': 90.66, 'San Diego': 151.04, 'Ensenada': 211.71, 'Barstow': 0, 'Phoenix': 300.39, 'Nogales': 429.76 , 'Tucson': 394.59, 'El Paso': 645.27, 'Big Spring': 913.11, 'Amarillo': 858.89, 'Dallas':1168.24 },
+        'Phoenix': {'Los Angeles': 356.90, 'San Diego': 299.03, 'Ensenada': 285.74, 'Barstow': 300.39, 'Phoenix': 0, 'Nogales': 160.71 , 'Tucson': 106.15 , 'El Paso':345.05  , 'Big Spring': 620.67 , 'Amarillo': 596.52, 'Dallas':884.49 },
+        'Nogales': {'Los Angeles': 464.13, 'San Diego': 376.64, 'Ensenada': 355.41, 'Barstow': 429.76 , 'Phoenix': 160.71 , 'Nogales': 0, 'Tucson': 99.68 , 'El Paso': 263.94, 'Big Spring':559.78 , 'Amarillo': 590.52, 'Dallas':834.03 },
+        'Tucson': {'Los Angeles': 439.21, 'San Diego': 362.54, 'Ensenada': 330.50, 'Barstow': 394.59, 'Phoenix': 106.15 , 'Nogales':99.68  , 'Tucson': 0, 'El Paso': 264.38, 'Big Spring': 554.99, 'Amarillo':564.01 , 'Dallas':826.29  },
+        'El Paso': {'Los Angeles': 699.37, 'San Diego':626.88 , 'Ensenada':593.66 , 'Barstow': 645.27, 'Phoenix':345.05  , 'Nogales':263.94 , 'Tucson': 264.38, 'El Paso': 0, 'Big Spring': 295.97, 'Amarillo': 358.86 , 'Dallas':570.60 },
+        'Big Spring': {'Los Angeles': 977.12, 'San Diego':914.36 , 'Ensenada':885.94 , 'Barstow':913.11 , 'Phoenix':620.67  , 'Nogales':559.78 , 'Tucson': 554.99, 'El Paso':295.97 , 'Big Spring': 0, 'Amarillo': 206.01, 'Dallas':274.97 },
+        'Amarillo': {'Los Angeles': 935.37, 'San Diego': 894.35, 'Ensenada': 880.89, 'Barstow': 858.89, 'Phoenix':596.52 , 'Nogales':590.52 , 'Tucson': 564.01, 'El Paso': 358.86 , 'Big Spring':206.01 , 'Amarillo': 0, 'Dallas': 333.68},
+        'Dallas': {'Los Angeles': 1237.77, 'San Diego': 1181.78, 'Ensenada': 1156.78, 'Barstow': 1168.24, 'Phoenix': 884.49, 'Nogales': 834.03, 'Tucson': 826.29 , 'El Paso': 570.60, 'Big Spring':274.97 , 'Amarillo':333.68 , 'Dallas': 0},
     }
     return distances, heuristic_values
 
