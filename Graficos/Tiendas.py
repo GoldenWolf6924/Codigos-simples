@@ -75,9 +75,10 @@ def find_next_weekday(date, weekday):
     Función auxiliar para encontrar el próximo día de la semana dado una fecha
     """
     days_ahead = weekday - date.weekday()
-    if days_ahead <= 0:  # El día ya es el mismo día o después del día de la semana deseado
+    if days_ahead < 0:  # El día ya es después del día de la semana deseado
         days_ahead += 7
     return date + datetime.timedelta(days_ahead)
+
 
 def graficar_semanas():
     if not eventos:
@@ -91,7 +92,6 @@ def graficar_semanas():
 
     fecha_inicio_min = min(evento.fecha_inicio for evento in eventos)
     fecha_final_max = max(evento.fecha_final for evento in eventos)
-
 
     semanas = []
     fecha_inicio_semana = fecha_inicio_min - timedelta(days=fecha_inicio_min.weekday())
@@ -111,18 +111,13 @@ def graficar_semanas():
         # Ajustar la fecha de inicio al siguiente día hábil si es fin de semana
         fecha_inicio_evento = find_next_weekday(evento.fecha_inicio, 0)  # 0 representa lunes
 
-        barras = []
-        fecha_inicio_semana_evento = fecha_inicio_evento - timedelta(days=fecha_inicio_evento.weekday())
-        fecha_final_semana_evento = evento.fecha_final - timedelta(days=evento.fecha_final.weekday())
-        fecha_actual = fecha_inicio_semana_evento
-        while fecha_actual <= fecha_final_semana_evento:
-            # Encuentra la semana en la lista de semanas
-            for i, semana in enumerate(semanas):
-                if semana <= fecha_actual < semana + timedelta(weeks=1):
-                    barras.append((i, 1))
-            fecha_actual += timedelta(days=1)
+        # Calcular la semana de inicio y fin del evento
+        semana_inicio_evento = (fecha_inicio_evento - fecha_inicio_semana).days // 7
+        semana_fin_evento = (evento.fecha_final - fecha_inicio_semana).days // 7
 
-        ax.broken_barh(barras, (eventos.index(evento), 1), facecolors=color_map[evento.nombre])
+        # Dibujar la barra horizontal para cada semana del evento
+        for i in range(semana_inicio_evento, semana_fin_evento + 1):
+            ax.broken_barh([(i, 1)], (eventos.index(evento), 1), facecolors=color_map[evento.nombre])
 
     ax.set_yticks([i + 0.5 for i in range(len(eventos))])
     ax.set_yticklabels([evento.nombre for evento in eventos])
@@ -134,6 +129,7 @@ def graficar_semanas():
     ax.set_title('Eventos por Semana')
     plt.tight_layout()
     plt.show()
+
 
 
 root = tk.Tk()
