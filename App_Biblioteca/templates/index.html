@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center mb-4">Biblioteca Virtual</h2>
+        
+        <!-- Formulario de búsqueda -->
+        <div class="card p-4 shadow-sm">
+            <h5 class="card-title">Búsqueda de Libros</h5>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <input type="text" id="titulo" class="form-control" placeholder="Título">
+                </div>
+                <div class="col-md-4">
+                    <input type="text" id="autor" class="form-control" placeholder="Autor">
+                </div>
+                <div class="col-md-4">
+                    <input type="text" id="genero" class="form-control" placeholder="Género">
+                </div>
+            </div>
+            <button class="btn btn-primary mt-3" onclick="buscarLibros()">Buscar</button>
+        </div>
+
+        <!-- Resultados de búsqueda -->
+        <div class="mt-4">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Título</th>
+                        <th>Autor</th>
+                        <th>Género</th>
+                        <th>Disponible</th>
+                    </tr>
+                </thead>
+                <tbody id="resultado">
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Exportación de registros -->
+        <div class="card p-4 mt-4 shadow-sm">
+            <h5 class="card-title">Exportar Préstamos</h5>
+            <div class="row g-3">
+                <div class="col-md-5">
+                    <input type="date" id="fecha_inicio" class="form-control">
+                </div>
+                <div class="col-md-5">
+                    <input type="date" id="fecha_fin" class="form-control">
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-success" onclick="exportarExcel()">Exportar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function buscarLibros() {
+            let titulo = document.getElementById('titulo').value;
+            let autor = document.getElementById('autor').value;
+            let genero = document.getElementById('genero').value;
+            
+            fetch(`/buscar?titulo=${titulo}&autor=${autor}&genero=${genero}`)
+                .then(response => response.json())
+                .then(data => {
+                    let resultado = document.getElementById('resultado');
+                    resultado.innerHTML = '';
+                    data.libros.forEach(libro => {
+                        resultado.innerHTML += `<tr>
+                            <td>${libro.Titulo}</td>
+                            <td>${libro.Autor}</td>
+                            <td>${libro.Genero}</td>
+                            <td>${libro.Disponible ? 'Sí' : 'No'}</td>
+                        </tr>`;
+                    });
+                });
+        }
+
+        function exportarExcel() {
+            let fecha_inicio = document.getElementById('fecha_inicio').value;
+            let fecha_fin = document.getElementById('fecha_fin').value;
+            
+            let formData = new FormData();
+            formData.append('fecha_inicio', fecha_inicio);
+            formData.append('fecha_fin', fecha_fin);
+            
+            fetch('/exportar', {
+                method: 'POST',
+                body: formData
+            }).then(response => response.blob())
+              .then(blob => {
+                  let link = document.createElement('a');
+                  link.href = URL.createObjectURL(blob);
+                  link.download = 'registros.xlsx';
+                  link.click();
+              });
+        }
+    </script>
+</body>
+</html>

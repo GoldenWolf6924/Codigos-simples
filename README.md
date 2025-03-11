@@ -1,1 +1,1 @@
-Codigos simples para el uso diario
+Codigos para hacer consultas a una base de datos y sacar reportes de excel
