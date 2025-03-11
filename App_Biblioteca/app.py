@@ -9,9 +9,9 @@ app = Flask(__name__)
 # Configuración de la conexión a SQL Server con autenticación de Windows
 DB_CONFIG = {
     'driver': '{ODBC Driver 17 for SQL Server}',
-    'server': 'DESKTOP-03BPJRV',
-    'database': 'biblioteca',
-    'trusted_connection': 'yes'
+    'server': '',
+    'database': '',
+    'trusted_connection': ''
 }
 
 def get_db_connection():
