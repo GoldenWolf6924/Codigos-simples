@@ -3,15 +3,19 @@ import pyodbc
 import pandas as pd
 import os
 from datetime import datetime
+from dotenv import load_dotenv  # Importar dotenv para cargar las variables de entorno
+
+# Cargar las variables de entorno del archivo .env
+load_dotenv()
 
 app = Flask(__name__)
 
 # Configuración de la conexión a SQL Server con autenticación de Windows
 DB_CONFIG = {
     'driver': '{ODBC Driver 17 for SQL Server}',
-    'server': '',
-    'database': '',
-    'trusted_connection': ''
+    'server': os.getenv('DB_SERVER'),  # Obtener el valor de la variable de entorno
+    'database': os.getenv('DB_DATABASE'),  # Obtener el valor de la variable de entorno
+    'trusted_connection': os.getenv('DB_TRUSTED_CONNECTION')  # Obtener el valor de la variable de entorno
 }
 
 def get_db_connection():
